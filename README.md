@@ -31,11 +31,29 @@ All analysis is backed by real data queried live from Databricks.
 
 ## Quick Start
 
-### 1. Set up Databricks
+### 1. Create a Databricks Trial Account
 
-Follow the trial setup guide at **[vragovvolo/montreal-hackathon-2026](https://github.com/vragovvolo/montreal-hackathon-2026)** to create your workspace and load the data.
+1. Go to https://www.databricks.com/try-databricks and select **"FOR WORK — Databricks Trial"** (not Free Edition — it lacks the credits and features you need)
+2. Sign up with a **work or school email** (not personal Gmail/Yahoo/Outlook) — type it manually, do not use SSO buttons
+3. Select **United States** as your country (more compute resources and features available in US regions)
+4. Wait for workspace provisioning, then verify your **~$400 in trial credits** via the "Manage trial" button in the top nav
+5. Confirm **Agent Bricks** access: left sidebar > AI/ML > Agents — both Knowledge Assistant and Supervisor Agent should be clickable
 
-### 2. Install Databricks AI Dev Kit
+> If Agent Bricks options are greyed out, your workspace wasn't properly recognized. Create a new account with a different work/school email.
+
+### 2. Load the Hackathon Data
+
+The data setup notebook is in **[vragovvolo/montreal-hackathon-2026](https://github.com/vragovvolo/montreal-hackathon-2026)**:
+
+1. In your Databricks workspace, create a **Git folder** pointing to `https://github.com/vragovvolo/montreal-hackathon-2026`
+2. Open `01_setup_data` and run on **serverless compute**
+3. All tables land in `montreal_hackathon.quebec_data`
+
+**Load modes:**
+- **Default (quick):** CSVs + GTFS transit data (~110 MB, ~3 min). Creates 12 tables.
+- **Full geospatial:** Set `LOAD_GEOSPATIAL = True` in the first config cell (~1 GB extra, ~10-15 min). Creates 17 tables including cycling network, pedestrian network, and transit geometries.
+
+### 3. Install Databricks AI Dev Kit
 
 ```bash
 pip install databricks-sdk databricks-sql-connector databricks-cli
@@ -46,14 +64,14 @@ This gives you:
 - **databricks-sql-connector** — SQL queries against Unity Catalog warehouses
 - **databricks-cli** — workspace configuration and Asset Bundle deployment
 
-### 3. Configure credentials
+### 4. Configure credentials
 
 ```bash
 databricks configure
 # Enter your workspace host and token
 ```
 
-### 4. Run locally
+### 5. Run locally
 
 ```bash
 # Backend
@@ -68,7 +86,7 @@ npm run build   # production build -> ../build/
 npm run dev     # dev server on :5173
 ```
 
-### 5. Deploy to Databricks
+### 6. Deploy to Databricks
 
 ```bash
 databricks bundle deploy
