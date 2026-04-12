@@ -59,6 +59,8 @@ The data setup notebook is in **[vragovvolo/montreal-hackathon-2026](https://git
 pip install databricks-sdk databricks-sql-connector databricks-cli
 ```
 
+With these installed, you can use **Claude Code** (or any AI coding assistant) to vibe code your idea straight to production on Databricks — query Unity Catalog tables, call Foundation Models, and deploy as a Databricks App, all from your terminal.
+
 This gives you:
 - **databricks-sdk** — authentication, Foundation Model API access (Llama 4 Maverick)
 - **databricks-sql-connector** — SQL queries against Unity Catalog warehouses
