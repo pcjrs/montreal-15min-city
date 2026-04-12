@@ -35,15 +35,25 @@ All analysis is backed by real data queried live from Databricks.
 
 Follow the trial setup guide at **[vragovvolo/montreal-hackathon-2026](https://github.com/vragovvolo/montreal-hackathon-2026)** to create your workspace and load the data.
 
-### 2. Configure credentials
+### 2. Install Databricks AI Dev Kit
 
 ```bash
-pip install databricks-cli
+pip install databricks-sdk databricks-sql-connector databricks-cli
+```
+
+This gives you:
+- **databricks-sdk** — authentication, Foundation Model API access (Llama 4 Maverick)
+- **databricks-sql-connector** — SQL queries against Unity Catalog warehouses
+- **databricks-cli** — workspace configuration and Asset Bundle deployment
+
+### 3. Configure credentials
+
+```bash
 databricks configure
 # Enter your workspace host and token
 ```
 
-### 3. Run locally
+### 4. Run locally
 
 ```bash
 # Backend
@@ -58,7 +68,7 @@ npm run build   # production build -> ../build/
 npm run dev     # dev server on :5173
 ```
 
-### 4. Deploy to Databricks
+### 5. Deploy to Databricks
 
 ```bash
 databricks bundle deploy
