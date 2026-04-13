@@ -16,7 +16,7 @@ def _sanitize_value(v: Any) -> Any:
     return v
 
 
-_WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "6cba794911e5618c")
+_WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "8d421519858864c7")
 _CATALOG = "montreal_hackathon"
 _SCHEMA = "quebec_data"
 

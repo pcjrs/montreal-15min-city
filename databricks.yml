@@ -1,5 +1,5 @@
 workspace:
-  host: https://dbc-dab2c37e-7a7b.cloud.databricks.com/
+  host: https://dbc-32d1558d-c1ca.cloud.databricks.com/
   profile: DEFAULT
 
 bundle:
@@ -20,6 +20,6 @@ resources:
           - "8000"
         env:
           - name: DATABRICKS_WAREHOUSE_ID
-            value: "6cba794911e5618c"
+            value: "8d421519858864c7"
           - name: LLM_ENDPOINT
             value: "databricks-llama-4-maverick"
