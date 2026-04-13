@@ -2,6 +2,9 @@
 
 An AI-powered tool for urban planners to audit how equitably essential services are distributed relative to multimodal transit access across Montreal's boroughs. Built on the *ville du quart d'heure* framework that Montreal is actively pursuing in its Plan d'urbanisme et de mobilite (PUM 2050).
 
+<img width="2559" height="1446" alt="image" src="https://github.com/user-attachments/assets/1d16d30d-7188-42f7-955d-30a1bd25d4f1" />
+
+
 ## What It Does
 
 - **Scores** any borough or FSA on 15-minute city readiness (0-4 scale) across healthcare, education, cultural, and recreation facilities
