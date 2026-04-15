@@ -62,22 +62,34 @@ async def health():
 @app.get("/api/facilities")
 async def get_facilities():
     """Return all facilities in the Montreal area for map display."""
-    rows = execute_sql(queries.ALL_FACILITIES)
-    return {"facilities": rows, "count": len(rows)}
+    try:
+        rows = execute_sql(queries.ALL_FACILITIES)
+        return {"facilities": rows, "count": len(rows)}
+    except Exception as e:
+        logger.exception("Failed to load facilities: %s", e)
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/api/transit-stops")
 async def get_transit_stops():
     """Return all transit stops with headway data for map display."""
-    rows = execute_sql(queries.ALL_STOPS_WITH_HEADWAY)
-    return {"stops": rows, "count": len(rows)}
+    try:
+        rows = execute_sql(queries.ALL_STOPS_WITH_HEADWAY)
+        return {"stops": rows, "count": len(rows)}
+    except Exception as e:
+        logger.exception("Failed to load transit stops: %s", e)
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/api/population")
 async def get_population():
     """Return all FSA population data."""
-    rows = execute_sql(queries.ALL_POPULATION)
-    return {"fsas": rows, "count": len(rows)}
+    try:
+        rows = execute_sql(queries.ALL_POPULATION)
+        return {"fsas": rows, "count": len(rows)}
+    except Exception as e:
+        logger.exception("Failed to load population: %s", e)
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/api/score/{borough}")

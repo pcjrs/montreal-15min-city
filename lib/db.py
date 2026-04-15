@@ -30,13 +30,19 @@ def execute_sql(query: str, params: dict[str, Any] | None = None) -> list[dict]:
     from databricks import sql as dbsql
 
     cfg = _get_config()
-    with dbsql.connect(
-        server_hostname=cfg.host.replace("https://", ""),
-        http_path=f"/sql/1.0/warehouses/{_WAREHOUSE_ID}",
-        credentials_provider=lambda: cfg.authenticate,
-        catalog=_CATALOG,
-        schema=_SCHEMA,
-    ) as conn:
+    connect_args = {
+        "server_hostname": cfg.host.replace("https://", "").rstrip("/"),
+        "http_path": f"/sql/1.0/warehouses/{_WAREHOUSE_ID}",
+        "catalog": _CATALOG,
+        "schema": _SCHEMA,
+    }
+    # Use token auth if available, otherwise fall back to credentials_provider
+    if cfg.token:
+        connect_args["access_token"] = cfg.token
+    else:
+        connect_args["credentials_provider"] = lambda: cfg.authenticate
+
+    with dbsql.connect(**connect_args) as conn:
         with conn.cursor() as cursor:
             if params:
                 for key, val in params.items():
@@ -55,13 +61,18 @@ def execute_sql_raw(query: str) -> tuple[list[str], list[list]]:
     from databricks import sql as dbsql
 
     cfg = _get_config()
-    with dbsql.connect(
-        server_hostname=cfg.host.replace("https://", ""),
-        http_path=f"/sql/1.0/warehouses/{_WAREHOUSE_ID}",
-        credentials_provider=lambda: cfg.authenticate,
-        catalog=_CATALOG,
-        schema=_SCHEMA,
-    ) as conn:
+    connect_args = {
+        "server_hostname": cfg.host.replace("https://", "").rstrip("/"),
+        "http_path": f"/sql/1.0/warehouses/{_WAREHOUSE_ID}",
+        "catalog": _CATALOG,
+        "schema": _SCHEMA,
+    }
+    if cfg.token:
+        connect_args["access_token"] = cfg.token
+    else:
+        connect_args["credentials_provider"] = lambda: cfg.authenticate
+
+    with dbsql.connect(**connect_args) as conn:
         with conn.cursor() as cursor:
             cursor.execute(query)
             columns = [desc[0] for desc in cursor.description]
